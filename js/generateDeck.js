@@ -12,6 +12,7 @@ var generatedeck = function(){
 		}
 	}
 	console.log(deck.length);
+	return deck;
 };
 
 generatedeck();
