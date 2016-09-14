@@ -47,7 +47,7 @@ var chooseAceValue = function (cardPoints){
   var minValue = 1;
   var maxValue = 11;
 
-  if((21 - cardPoints) < 11){
+  if((21 - cardPoints) <= 11){
     return minValue;
   } else {
     return maxValue;

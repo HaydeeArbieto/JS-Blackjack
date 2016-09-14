@@ -11,6 +11,9 @@ var generatedeck = function(){
 			console.log(deck[deck.length-1].suit + deck[deck.length-1].value);
 		}
 	}
+
+
+
 	console.log(deck.length);
 	return deck;
 };
