@@ -8,12 +8,12 @@ var generatedeck = function(){
 		for(var y=0; y!==values.length; y++)
 		{
 			deck.push({suit: suits[x], value: values[y]});
-			console.log(deck[deck.length-1].suit + deck[deck.length-1].value);
+			//console.log(deck[deck.length-1].suit + deck[deck.length-1].value);
 		}
 	}
 
-	console.log(deck.length);
-	console.log("*********");
+	//console.log(deck.length);
+	//console.log("*********");
 	return deck;
 };
 
