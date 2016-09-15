@@ -12,10 +12,10 @@ var generatedeck = function(){
 		}
 	}
 
-
-
 	console.log(deck.length);
+	console.log("*********");
 	return deck;
 };
+
 
 generatedeck();
