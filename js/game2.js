@@ -23,9 +23,6 @@ var gameround = function(){
 	playerhand.push(deck.pop());
 	playerhand.push(deck.pop());
 
-	playerhand[0].value = 'E';
-	playerhand[1].value = '10';
-
 	//Function for printing hand
 	var printhand = function(hand){
 		for(x=0;x!==hand.length;x++)

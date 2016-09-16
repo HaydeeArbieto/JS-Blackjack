@@ -7,7 +7,7 @@ var evaluatehand = function(hand, dropaces){
 
 		if (hand[x].value === 'E')
 		{
-			if (dropaces !== 0)
+			if (tempdropaces !== 0)
 			{
 				tempdropaces--;
 				evaluation++;
@@ -17,7 +17,7 @@ var evaluatehand = function(hand, dropaces){
 				evaluation = evaluation + 11;
 				continue;
 			}
-		}		
+		}
 
 		if (hand[x].value === 'J' || hand[x].value === 'Q' || hand[x].value === 'K'){
 			evaluation = evaluation + 10;
@@ -26,10 +26,10 @@ var evaluatehand = function(hand, dropaces){
 
 		evaluation = evaluation + Number(hand[x].value);
 		}
-		
+
 
 		//Really didn't think this through, should have a single if, then return evaluation;
-		//lol	
+		//lol
 		if (evaluation > 21) {
 			if (tempdropaces === 0) {
 			dropaces++;
