@@ -16,12 +16,15 @@ var gameround = function(){
 	var bet = betsize;
 
 	//Draw 2
-	househand.push(deck.pop());	
+	househand.push(deck.pop());
 	househand.push(deck.pop());
 
 	//Draw 2
 	playerhand.push(deck.pop());
 	playerhand.push(deck.pop());
+
+	playerhand[0].value = 'E';
+	playerhand[1].value = '10';
 
 	//Function for printing hand
 	var printhand = function(hand){
@@ -32,7 +35,7 @@ var gameround = function(){
 	}
 
 
-	//Game loop	
+	//Game loop
 	for(;true;)
 	{
 		//Print info at start of round
@@ -46,7 +49,7 @@ var gameround = function(){
 		console.log('***********');
 
 		//Check if player bust
-		if (evaluatehand(playerhand) > 21)
+		if (evaluatehand(playerhand, 0) > 21)
 		{
 			console.log('Player has gone bust!');
 			housemoney = housemoney + bet;
@@ -66,7 +69,7 @@ var gameround = function(){
 
 		if (choice === 'd')
 		{
-			playermoney = playermoney - betsize;
+			playermoney = playermoney - bet;
 			bet = bet + bet;
 			playerhand.push(deck.pop());
 			break;
@@ -79,7 +82,7 @@ var gameround = function(){
 	}
 
 	//Check if player went bust after doubling down
-	if (evaluatehand(playerhand) > 21)
+	if (evaluatehand(playerhand, 0) > 21)
 	{
 		console.log('Player has gone bust!');
 		housemoney = housemoney + bet;
@@ -89,58 +92,59 @@ var gameround = function(){
 
 
 	//Check if player loses
-	if (evaluatehand(playerhand) < evaluatehand(househand)){
-		console.log('Player stood with:');
+	if (evaluatehand(playerhand, 0) < evaluatehand(househand, 0)){
+		console.log('Player stood with:', evaluatehand(playerhand, 0));
 		printhand(playerhand);
-		console.log('House stood with:');
+		console.log('House stood with:', evaluatehand(househand, 0));
 		printhand(househand);
 		console.log('House wins!');
+		housemoney = housemoney + bet;
 		return;
 	}
 
 	//If player is currently winning, house will draw until they have an equal or greater hand (even if this means going bust)
-	for(;evaluatehand(playerhand) > evaluatehand(househand);)
+	for(;evaluatehand(playerhand, 0) > evaluatehand(househand, 0);)
 	{
 		househand.push(deck.pop());
 	}
 	//Pay out according to result
 
 	//Dealer bust/player win (only possible scenario, given that dealer only stops if they win or go bust)
-	if(evaluatehand(househand) > 21)
+	if(evaluatehand(househand, 0) > 21)
 	{
 		playermoney = playermoney + bet + bet;
 		housemoney = housemoney - bet;
-		console.log('Player stood with:');
+		console.log('Player stood with:', evaluatehand(playerhand, 0));
 		printhand(playerhand);
-		console.log('House went bust with:');
+		console.log('House went bust with:', evaluatehand(househand, 0));
 		printhand(househand);
 		console.log('Player wins $', bet, '!')
 		return;
 	}
 
-
 	//Draw
-	if(evaluatehand(househand) === evaluatehand(playerhand)){
+	if(evaluatehand(househand, 0) === evaluatehand(playerhand, 0)){
 		playermoney = playermoney + bet; //Return bet
-		console.log('Player stood with:');
+		console.log('Player stood with:', evaluatehand(playerhand, 0));
 		printhand(playerhand);
-		console.log('House stood with:');
+		console.log('House stood with:', evaluatehand(househand, 0));
 		printhand(househand);
 		console.log('Draw!');
 	}
 
 	//House win
-	if(evaluatehand(househand) > evaluatehand(playerhand))
+	if(evaluatehand(househand, 0) > evaluatehand(playerhand, 0))
 	{
 		housemoney = housemoney + bet;
-		console.log('Player stood with:');
+		console.log('Player stood with:', evaluatehand(playerhand, 0));
 		printhand(playerhand);
-		console.log('House stood with:');
+		console.log('House stood with:', evaluatehand(househand, 0));
 		printhand(househand);
 		console.log('House wins!');
 	}
 
 
 }
+
 
 gameround();
