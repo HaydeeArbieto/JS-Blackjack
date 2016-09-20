@@ -1,15 +1,17 @@
 //Evaluate an array containing a hand of cards.
 //Pass the hand and 0 (or nothing???) to get the correct value, the second argument is there so that the function functions recursively.
-var evaluatehand = function(hand, dropaces){
-	var tempdropaces = dropaces;
+'use strict'
+game.logic = {};
+game.logic.evaluateHand = function(hand, dropAces){
+	var tempDropAces = dropAces;
 	var evaluation = 0;
 	for(var x=0;x!==hand.length;x++){
 
 		if (hand[x].value === 'E')
 		{
-			if (tempdropaces !== 0)
+			if (tempDropAces !== 0)
 			{
-				tempdropaces--;
+				tempDropAces--;
 				evaluation++;
 				continue;
 			} else
@@ -27,19 +29,14 @@ var evaluatehand = function(hand, dropaces){
 		evaluation = evaluation + Number(hand[x].value);
 		}
 
-
-		//Really didn't think this through, should have a single if, then return evaluation;
-		//lol
 		if (evaluation > 21) {
-			if (tempdropaces === 0) {
-			dropaces++;
-			return evaluatehand(hand, dropaces);
+			if (tempDropAces === 0) {
+			dropAces++;
+			return game.logic.evaluateHand(hand, dropAces);
 			} else {
 			return evaluation;
 			}
 		} else {
 			return evaluation;
 		}
-
-
 };
