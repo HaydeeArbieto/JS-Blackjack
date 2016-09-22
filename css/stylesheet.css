@@ -9,16 +9,24 @@ h1{
   flex-direction: column;
 }
 
-.button-container{
+.dealer-container{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  min-height: 200px;
 }
 
-.button-container form {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.player-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  min-width: 200px;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .score-container{

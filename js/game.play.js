@@ -115,7 +115,7 @@ game.play = function(){
     //Draw
     if (game.logic.evaluateHand(houseHand, 0) === game.logic.evaluateHand(playerHand, 0)) {
         playerMoney = playerMoney + bet; //Return bet
-        console.log('Player stood with:', evaluateHand(playerHand, 0));
+        console.log('Player stood with:', game.logic.evaluateHand(playerHand, 0));
         printHand(playerHand);
         console.log('House stood with:', game.logic.evaluateHand(houseHand, 0));
         printHand(houseHand);
@@ -123,7 +123,7 @@ game.play = function(){
     }
 
     //House win
-    if (evaluateHand(houseHand, 0) > game.logic.evaluateHand(playerHand, 0)) {
+    if (game.logic.evaluateHand(houseHand, 0) > game.logic.evaluateHand(playerHand, 0)) {
         houseMoney = houseMoney + bet;
         console.log('Player stood with:', game.logic.evaluateHand(playerHand, 0));
         printHand(playerHand);
