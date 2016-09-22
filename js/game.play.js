@@ -1,14 +1,11 @@
-'use strict';
+'use strict'
 game.play = function(){
 
-	var houseMoney = 1000;
-	var playerMoney = 500;
-	var betSize = 50;
 
     //TODO: Check if house/player has more than 0 money, declare loss/win respectively if either is false.
 
     //Initial setup
-		/*global game.generateDeck.generate _ evaluateHand*/
+	
     var deck = game.generateDeck.generate();
 
     deck = _.shuffle(deck);
@@ -17,8 +14,8 @@ game.play = function(){
     var playerHand = [];
 
     //Take initial cost to play (ante?)
-    playerMoney = playerMoney - betSize;
-    var bet = betSize;
+    game.playerMoney = game.playerMoney - game.betSize;
+    var bet = game.betSize;
 
     //Draw 2
     houseHand.push(deck.pop());
@@ -50,7 +47,7 @@ game.play = function(){
         //Check if player bust
         if (game.logic.evaluateHand(playerHand, 0) > 21) {
             console.log('Player has gone bust!');
-            houseMoney = houseMoney + bet;
+            game.houseMoney = game.houseMoney + bet;
             return;
         }
 
@@ -59,13 +56,13 @@ game.play = function(){
         //TODO: add checks for if you can afford to bet/double down
 
         if (choice === 'b') {
-            playerMoney = playerMoney - betSize;
-            bet = bet + betSize;
+            game.playerMoney = game.playerMoney - game.betSize;
+            bet = bet + game.betSize;
             playerHand.push(deck.pop());
         }
 
         if (choice === 'd') {
-            playerMoney = playerMoney - bet;
+            game.playerMoney = game.playerMoney - bet;
             bet = bet + bet;
             playerHand.push(deck.pop());
             break;
@@ -79,7 +76,7 @@ game.play = function(){
     //Check if player went bust after doubling down
     if (game.logic.evaluateHand(playerHand, 0) > 21) {
         console.log('Player has gone bust!');
-        houseMoney = houseMoney + bet;
+        game.houseMoney = game.houseMoney + bet;
         return;
     }
 
@@ -90,7 +87,7 @@ game.play = function(){
         console.log('House stood with:', game.logic.evaluateHand(houseHand, 0));
         printHand(houseHand);
         console.log('House wins!');
-        houseMoney = houseMoney + bet;
+        game.houseMoney = game.houseMoney + bet;
         return;
     }
 
@@ -102,8 +99,8 @@ game.play = function(){
 
     //Dealer bust/player win (only possible scenario, given that dealer only stops if they win or go bust)
     if (game.logic.evaluateHand(houseHand, 0) > 21) {
-        playerMoney = playerMoney + bet + bet;
-        houseMoney = houseMoney - bet;
+        game.playerMoney = game.playerMoney + bet + bet;
+        game.houseMoney = game.houseMoney - bet;
         console.log('Player stood with:', game.logic.evaluateHand(playerHand, 0));
         printHand(playerHand);
         console.log('House went bust with:', game.logic.evaluateHand(houseHand, 0));
@@ -114,7 +111,7 @@ game.play = function(){
 
     //Draw
     if (game.logic.evaluateHand(houseHand, 0) === game.logic.evaluateHand(playerHand, 0)) {
-        playerMoney = playerMoney + bet; //Return bet
+        game.playerMoney = game.playerMoney + bet; //Return bet
         console.log('Player stood with:', game.logic.evaluateHand(playerHand, 0));
         printHand(playerHand);
         console.log('House stood with:', game.logic.evaluateHand(houseHand, 0));
@@ -124,7 +121,7 @@ game.play = function(){
 
     //House win
     if (game.logic.evaluateHand(houseHand, 0) > game.logic.evaluateHand(playerHand, 0)) {
-        houseMoney = houseMoney + bet;
+        game.houseMoney = game.houseMoney + bet;
         console.log('Player stood with:', game.logic.evaluateHand(playerHand, 0));
         printHand(playerHand);
         console.log('House stood with:', game.logic.evaluateHand(houseHand, 0));
